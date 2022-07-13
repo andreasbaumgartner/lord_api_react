@@ -15,16 +15,28 @@ const Api = () => {
   async function getAllBooks() {
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data);
+    console.log(data.docs);
+    setData(data.docs);
   }
+  //   return (
+  //   <div>
+  //       {data.map((project, key) => {
+  //         return <p key={key}>{project.name}</p>;
+  //       })}
+  //     </div>
+  //   )
+  if (!data.length) return <div>No data</div>;
 
   return (
     <div>
-      <blockquote>
-        The man who comes back through the door in the wall will never be quite
-        the same as the man who went out.
-      </blockquote>
-      <cite>Aldous Huxley</cite>
+      {data.map((book) => {
+        return (
+          <div style={{ marginBottom: 4 }}>
+            <blockquote>{book.name}</blockquote>
+            <cite>Lord of the Rings</cite>
+          </div>
+        );
+      })}
     </div>
   );
 };
