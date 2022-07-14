@@ -1,13 +1,18 @@
 import React from "react";
 import { useEffect, useState } from "react";
+
 // API to Call
 // https://the-one-api.dev/v2/book
 // Dokumentation
 // https://the-one-api.dev/documentation
+const API_Key = process.env.REACT_APP_API_KEY;
 
+const headers = {
+  Accept: "application/json",
+  Authorization: API_Key,
+};
 const Api = () => {
   const url = "https://the-one-api.dev/v2/book";
-
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -15,7 +20,9 @@ const Api = () => {
   }, []);
 
   async function getAllBooks() {
-    const res = await fetch(url);
+    const res = await fetch(url, {
+      headers: headers,
+    });
     const data = await res.json();
     console.log(data.docs);
     setData(data.docs);
